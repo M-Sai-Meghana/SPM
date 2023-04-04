@@ -5,7 +5,7 @@ def sendmail(to,subject,body):
     server=smtplib.SMTP_SSL('smtp.gmail.com',465)
     server.login('gmail.com','otp')
     msg=EmailMessage()
-    msg['From']='meghanasai878@gmail.com'
+    msg['From']='gmail.com'
     msg['Subject']=subject
     msg['To']=to
     msg.set_content(body)
