@@ -109,6 +109,7 @@ def noteshome():
         cursor=mysql.connection.cursor()
         cursor.execute('select * from notes where rollno=%s',[rollno])
         notes_data=cursor.fetchall()
+        cursor.close()
         print(notes_data)
         return render_template('addnotetable.html',data=notes_data)
         return render_template('addnotetable.html')
@@ -135,6 +136,7 @@ def viewnotes(nid):
     cursor=mysql.connection.cursor()
     cursor.execute('select title,content from notes where nid=%s',[nid])
     data=cursor.fetchone()
+    cursor.close
     return render_template('notesview.html',data=data)
 @app.route('/updatenotes/<nid>',methods=['GET','POST'])
 def updatenotes(nid):
@@ -170,6 +172,7 @@ def fileshome():
         cursor=mysql.connection.cursor()
         cursor.execute('select fid,filename,date from files where rollno=%s',[rollno])
         data=cursor.fetchall()
+        cursor.close()
         return render_template('fileuploadtable.html',data=data)
     else:
         return redirect(url_for('login'))
@@ -238,6 +241,7 @@ def createpassword(token):
                 cursor=mysql.connection.cursor()
                 cursor.execute('update student set paswword=%s where rollno=%s',[npass,rollno])
                 mysql.connection.commit()
+                cursor.close()
                 return 'Password changed successfully'
             else:
                 return 'Written password was mismatched'
